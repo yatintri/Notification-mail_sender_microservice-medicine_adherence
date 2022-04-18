@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitmqConfiguration {
 
 
-
     @Value("${project.rabbitmq.queue2}")
     private String queue2_name;
 
@@ -25,27 +24,37 @@ public class RabbitmqConfiguration {
     @Value("${project.rabbitmq.routingkey2}")
     private String routing_key2;
 
+    @Value("${project.rabbitmq.queue}")
+    private String queue_name;
 
-
-
-
+    @Value("${project.rabbitmq.routingkey}")
+    private String routing_key;
 
     @Bean(name = "queue2")
-    public Queue getnotificationqueue(){
+    public Queue getnotificationqueue() {
         return new Queue(queue2_name);
+    }
+
+    @Bean(name = "queue1")
+    public Queue getmailqueue(){
+        return new Queue(queue_name);
     }
 
 
     @Bean
-    public TopicExchange gettopicexchange(){
+    public TopicExchange gettopicexchange() {
         return new TopicExchange(topic_exchange);
     }
-
 
 
     @Bean(name = "bind2")
     Binding binding2(@Qualifier("queue2") Queue queue, TopicExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(routing_key2);
+    }
+
+    @Bean(name = "bind1")
+    Binding binding(@Qualifier("queue1") Queue queue, TopicExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with(routing_key);
     }
 
     @Bean
@@ -59,8 +68,6 @@ public class RabbitmqConfiguration {
         rabbitTemplate.setMessageConverter(jsonMessageConverter());
         return rabbitTemplate;
     }
-
-
 
 
 }

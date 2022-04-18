@@ -18,14 +18,25 @@ public class Notificationservice {
     FirebaseMessaging firebaseMessaging;
 
     @RabbitListener(queues = "notification")
-public void sendnotification(Notificationmessage notificationmessage) throws FirebaseMessagingException {
-System.out.println("Received");
-    String token = notificationmessage.getFcm_token();
-    Notification notification = Notification
-            .builder()
-            .setTitle(notificationmessage.getMessage())
-            .setBody("from caretaker")
-            .build();
+    public void sendnotification(com.example.user_service.pojos.Notificationmessage notificationmessage) throws FirebaseMessagingException {
+    System.out.println("Received");
+    String token = notificationmessage.getFcmToken();
+        Notification notification = null;
+        System.out.println(notificationmessage.getImageUrl());
+
+    if(notificationmessage.getTitle().equals("caretaker")){
+       notification =  Notification
+                .builder()
+                .setTitle(notificationmessage.getTitle())
+                .setImage("https://0a76-103-248-123-87.ngrok.io/upload/static/images/"+notificationmessage.getImageUrl())
+                .setBody("Taken Medicine "+ notificationmessage.getBody()).build();
+    }else{
+       notification = Notification
+                .builder()
+                .setTitle(notificationmessage.getTitle())
+
+                .setBody("Time to take medicine : "+notificationmessage.getBody()).build();
+    }
 
     Message message = Message
             .builder()
