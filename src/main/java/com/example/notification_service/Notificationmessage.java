@@ -1,4 +1,4 @@
-package com.example.user_service.pojos;
+package com.example.notification_service;
 
 public class Notificationmessage {
     //
@@ -45,8 +45,8 @@ public Notificationmessage(){}
         return fcmToken;
     }
 
-    public void setFcmToken(String fcm_token) {
-        this.fcmToken = fcm_token;
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
     }
 
     public String getMessage() {

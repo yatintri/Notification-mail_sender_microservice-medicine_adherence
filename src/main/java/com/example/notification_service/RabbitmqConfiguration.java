@@ -14,47 +14,47 @@ public class RabbitmqConfiguration {
 
 
     @Value("${project.rabbitmq.queue2}")
-    private String queue2_name;
+    private String queue2Name;
 
 
     @Value("${project.rabbitmq.exchange}")
-    private String topic_exchange;
+    private String topicExchange;
 
 
     @Value("${project.rabbitmq.routingkey2}")
-    private String routing_key2;
+    private String routingKey2;
 
     @Value("${project.rabbitmq.queue}")
-    private String queue_name;
+    private String queueName;
 
     @Value("${project.rabbitmq.routingkey}")
-    private String routing_key;
+    private String routingKey;
 
     @Bean(name = "queue2")
     public Queue getnotificationqueue() {
-        return new Queue(queue2_name);
+        return new Queue(queue2Name);
     }
 
     @Bean(name = "queue1")
     public Queue getmailqueue(){
-        return new Queue(queue_name);
+        return new Queue(queueName);
     }
 
 
     @Bean
     public TopicExchange gettopicexchange() {
-        return new TopicExchange(topic_exchange);
+        return new TopicExchange(topicExchange);
     }
 
 
     @Bean(name = "bind2")
     Binding binding2(@Qualifier("queue2") Queue queue, TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(routing_key2);
+        return BindingBuilder.bind(queue).to(exchange).with(routingKey2);
     }
 
     @Bean(name = "bind1")
     Binding binding(@Qualifier("queue1") Queue queue, TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(routing_key);
+        return BindingBuilder.bind(queue).to(exchange).with(routingKey);
     }
 
     @Bean

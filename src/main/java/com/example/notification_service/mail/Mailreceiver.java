@@ -23,7 +23,7 @@ public class Mailreceiver {
         String message1  = "Hello "+mailInfo.getSender()+" has sent you request to be a caretaker . If not registered kindly signup into our application if not downloaded click on below link to down application . "+
                  "https://play.google.com/store/apps/details?id=com.animesafar.dinterviewkit";
     logger.info(Thread.currentThread().getName());
-     System.out.println("received");
+
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(mailInfo.getReceiverMail());
             message.setSubject("Caretaker request");
