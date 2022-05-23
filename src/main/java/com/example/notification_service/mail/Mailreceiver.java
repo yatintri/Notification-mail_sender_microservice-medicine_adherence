@@ -1,5 +1,6 @@
 package com.example.notification_service.mail;
 
+import com.example.notification_service.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -14,23 +15,26 @@ public class Mailreceiver {
 
     @Autowired
     private JavaMailSender javaMailSender;
+
+    @Autowired
+            private EmailService emailService;
     Logger logger = LoggerFactory.getLogger(Mailreceiver.class);
 
     @RabbitListener(queues = "mail")
     @Async
     public void receive(MailInfo mailInfo) {
 
-        String message1  = "Hello "+mailInfo.getSender()+" has sent you request to be a caretaker . If not registered kindly signup into our application if not downloaded click on below link to down application . "+
+      String message1  = "Hello "+mailInfo.getSender()+" has sent you request to be a caretaker . If not registered kindly signup into our application if not downloaded click on below link to down application . "+
                  "https://play.google.com/store/apps/details?id=com.animesafar.dinterviewkit";
-    logger.info(Thread.currentThread().getName());
-
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setTo(mailInfo.getReceiverMail());
-            message.setSubject("Caretaker request");
-            message.setText(message1);
-            javaMailSender.send(message);
-
-
+//    logger.info(Thread.currentThread().getName());
+//
+//            SimpleMailMessage message = new SimpleMailMessage();
+//            message.setTo(mailInfo.getReceiverMail());
+//            message.setSubject("Caretaker request");
+//            message.setText(message1);
+//            javaMailSender.send(message);
+        emailService.sendEmail(
+                new EmailRequest(mailInfo.getReceiverMail(), mailInfo.getMailSubject(),message1));
 
     }
 

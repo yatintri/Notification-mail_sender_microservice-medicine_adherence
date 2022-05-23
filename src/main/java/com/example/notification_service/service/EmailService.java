@@ -21,7 +21,7 @@ public class EmailService {
     SendGrid sendGrid;
 
     public Response sendEmail(EmailRequest emailRequest){
-        Mail mail = new Mail(new Email("chbharath517@gmail.com"), emailRequest.getSubject(),
+        Mail mail = new Mail(new Email("medstick12@gmail.com"), emailRequest.getSubject(),
                 new Email(emailRequest.getTo()),
                 new Content("text/plain", emailRequest.getBody()));
         mail.setReplyTo(new Email("abc@gmail.com"));
