@@ -1,5 +1,6 @@
-package com.example.notification_service;
+package com.example.notification_service.service;
 
+import com.example.notification_service.Pojos.Notificationmessage;
 import com.google.firebase.messaging.*;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
